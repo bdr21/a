@@ -1,5 +1,41 @@
 //Get the button:
 mybutton = document.getElementById("myBtn");
+more = document.getElementById("open-side");
+side = document.getElementById("side");
+
+more.addEventListener("click" , (e) => {
+  side.style.display = "block"
+})
+
+const debounce = ( fn , delay) => {
+  let timeoutID;
+  return function (...args) {
+    if (timeoutID) {
+      clearTimeout(timeoutID);
+    }
+    timeoutID = setTimeout( () => {
+      fn(...args);
+    } , delay );
+  }
+}
+
+// mobile nav start
+var lst = 0 ;
+var mobile = document.getElementById('mobile-nav')
+window.addEventListener("scroll", debounce( () => {
+  console.log("hey");
+  var st = window.pageYOffset || document.documentElement.scrollTop
+  if ( st > lst ) {
+    mobile.style.bottom = "-8rem";
+    mybutton.style.bottom = "1rem"
+  } else {
+    mobile.style.bottom = "0";
+    mybutton.style.bottom = "8rem"
+  }
+  lst = st ;
+} , 500)
+);
+// mobile nav end
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
@@ -17,8 +53,9 @@ document.querySelectorAll(".input").forEach(element => {
     element.parentElement.style.backgroundColor = "#6374E3"
     if (element.value == "") {
       element.parentElement.style.backgroundColor = "transparent"
+      // element.nextElementSibling.style.transform = "translateY(0)"
     } else if (element.value != "") {
-      element.nextElementSibling.style.transform = "translateY(-2rem)"
+      element.nextElementSibling.style.transform = "translateY(-3.2rem)"
     }
     
   })
